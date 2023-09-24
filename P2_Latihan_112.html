@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2_112</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="header1">P2_112</div>
+
+    <form onsubmit="return validate()">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td>
+                        <input id="nama" type="text">
+                    </td>
+                    <td id="error_nama" style="color: red;"></td>
+                </tr>
+                <tr>
+                    <td>Mata Kuliah</td>
+                    <td>:</td>
+                    <td>
+                        <select id="matakuliah">
+                            <option value="">Pilih Mata Kuliah</option>
+                            <option value="Matematika">Matematika</option>
+                            <option value="Fisika">Fisika</option>
+                            <option value="Kimia">Kimia</option>
+                        </select>
+                    </td>
+                    <td id="error_matakuliah" style="color: red;"></td>
+                </tr>
+                <tr>
+                    <td>Nilai</td>
+                    <td>:</td>
+                    <td>
+                        <input id="nilai" type="number">
+                    </td>
+                    <td id="error_nilai" style="color: red;"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" onclick="resetFields()">Batal</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Kirim">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        function validate() {
+            let nama = $("#nama").val();
+            let matakuliah = $("#matakuliah").val();
+            let nilai = $("#nilai").val();
+            let validate = true;
+
+            // Validasi Nama
+            if (nama.trim() === "") {
+                $("#error_nama").text("Harap isi field Nama!");
+                validate = false;
+            } else if (nama.length > 20) {
+                $("#error_nama").text("Nama maksimal 20 huruf!");
+                validate = false;
+            } else {
+                let namaPattern = /^[a-zA-Z\s]*$/;
+
+                if (!namaPattern.test(nama.trim())) {
+                    $("#error_nama").text("Nama harus berisi huruf atau spasi!");
+                    validate = false;
+                } else {
+                    $("#error_nama").text("");
+                }
+            }
+
+            // Validasi Mata Kuliah
+            if (matakuliah.trim() === "") {
+                $("#error_matakuliah").text("Harap pilih Mata Kuliah!");
+                validate = false;
+            } else {
+                $("#error_matakuliah").text("");
+            }
+
+            // Validasi Nilai
+            if (nilai.trim() === "") {
+                $("#error_nilai").text("Harap isi field Nilai!");
+                validate = false;
+            } else if (isNaN(nilai) || nilai < 0 || nilai > 100) {
+                $("#error_nilai").text("Nilai harus antara 0 dan 100!");
+                validate = false;
+            } else {
+                $("#error_nilai").text("");
+            }
+
+            return validate;
+        }
+
+        function resetFields() {
+            $("#nama").val("");
+            $("#matakuliah").val("");
+            $("#nilai").val("");
+            $("#error_nama").text("");
+            $("#error_matakuliah").text("");
+            $("#error_nilai").text("");
+        }
+    </script>
+</body>
+</html>
